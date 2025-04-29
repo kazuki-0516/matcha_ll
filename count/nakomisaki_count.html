@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>岬なこちゃん記念日カウント</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom right, #ffe0f0, #d0f0ff);
+      color: #333;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #ff82ab;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.5em;
+      line-height: 2;
+    }
+
+    li span {
+      font-weight: bold;
+      color: #ff4081;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 岬なこちゃん 記念日まとめ 🌸</h1>
+  <ul>
+    <li>🎤 デビュー日から <span id="debut"></span> 日経過！</li>
+    <li>📸 1st写真集発売から <span id="photobook"></span> 日経過！</li>
+    <li>🎶 1stライブから <span id="live"></span> 日経過！</li>
+    <li>🎂 次の誕生日まで <span id="birthday"></span> 日！</li>
+  </ul>
+
+  <script>
+    // 記念日設定
+    const debutDate = new Date('2023-07-05');
+    const photoBookDate = new Date('2022-12-02');
+    const liveDate = new Date('2023-11-11');
+    const birthMonth = 2; // 3月 → 2（0始まり）
+    const birthDay = 8;
+
+    const today = new Date();
+    today.setHours(0,0,0,0); // 時間切り捨て
+
+    // 次回誕生日計算
+    let nextBirthday = new Date(today.getFullYear(), birthMonth, birthDay);
+    if (nextBirthday < today) {
+      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+    }
+
+    // 日数計算関数
+    function calcDiff(fromDate, toDate) {
+      const diff = toDate - fromDate;
+      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    }
+
+    // 表示処理
+    document.getElementById("debut").textContent = calcDiff(debutDate, today);
+    document.getElementById("photobook").textContent = calcDiff(photoBookDate, today);
+    document.getElementById("live").textContent = calcDiff(liveDate, today);
+
+    const birthdayDiff = calcDiff(today, nextBirthday);
+    document.getElementById("birthday").textContent = birthdayDiff === 0
+      ? "🎉 今日はお誕生日！おめでとう！！ 🎉"
+      : birthdayDiff;
+  </script>
+</body>
+</html>
