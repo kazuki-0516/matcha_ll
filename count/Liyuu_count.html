@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Liyuuちゃん記念日カウント</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom right, #ffe0f0, #e0f7ff);
+      color: #333;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #ff82ab;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.5em;
+      line-height: 2;
+    }
+
+    li span {
+      font-weight: bold;
+      color: #ff4081;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Liyuuちゃん 記念日まとめ 🌸</h1>
+  <ul>
+    <li>🎤 デビュー日から <span id="debut"></span> 日経過！</li>
+    <li>💿 ファーストシングル発売から <span id="single"></span> 日経過！</li>
+    <li>🎶 ファーストライブから <span id="live"></span> 日経過！</li>
+    <li>🎂 次の誕生日まで <span id="birthday"></span> 日！</li>
+  </ul>
+
+  <script>
+    // 基準日設定
+    const debutDate = new Date('2020-01-01');
+    const singleDate = new Date('2020-04-22');
+    const liveDate = new Date('2021-02-11');
+    const birthMonth = 0; // 1月 → 0
+    const birthDay = 9;
+
+    const today = new Date();
+    today.setHours(0,0,0,0); // 日付比較用に時間切り捨て
+
+    // 誕生日（今年 or 来年）
+    let nextBirthday = new Date(today.getFullYear(), birthMonth, birthDay);
+    if (nextBirthday < today) {
+      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+    }
+
+    // 日数計算関数
+    function calcDiff(fromDate, toDate) {
+      const diff = toDate - fromDate;
+      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    }
+
+    // 経過日数
+    document.getElementById("debut").textContent = calcDiff(debutDate, today);
+    document.getElementById("single").textContent = calcDiff(singleDate, today);
+    document.getElementById("live").textContent = calcDiff(liveDate, today);
+
+    // 誕生日までの日数
+    const birthdayDiff = calcDiff(today, nextBirthday);
+    document.getElementById("birthday").textContent = birthdayDiff === 0
+      ? "🎉 今日は誕生日！おめでとう！！ 🎉"
+      : birthdayDiff;
+  </script>
+</body>
+</html>
