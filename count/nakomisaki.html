@@ -6,11 +6,20 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom right, #ffe0f0, #d0f0ff);
+      background: linear-gradient(120deg, #fffde7, #fff3c0, #fffde7); /* ←グラデ色＆角度変更＋3色に */
+      background-size: 300% 300%;       /* ←追加（動きを大きく見せるため） */
+      animation: gradientMove 10s ease infinite; /* ←追加（ゆっくり無限ループ） */
       color: #333;
       text-align: center;
       padding: 50px 20px;
     }
+
+    @keyframes gradientMove {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
 
     h1 {
       font-size: 2.5em;
