@@ -6,10 +6,18 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom right, #ffe0f0, #e0f7ff);
+      background: linear-gradient(120deg, #ffe0f0, #e0f7ff, #ffe0f0);
+      background-size: 300% 300%;
+      animation: gradientFlow 12s ease infinite;
       color: #333;
       text-align: center;
       padding: 50px 20px;
+    }
+
+    @keyframes gradientFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     h1 {
