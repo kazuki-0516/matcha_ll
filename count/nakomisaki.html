@@ -6,9 +6,9 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(120deg, #fffde7, #fff3c0, #fffde7); /* ←グラデ色＆角度変更＋3色に */
-      background-size: 300% 300%;       /* ←追加（動きを大きく見せるため） */
-      animation: gradientMove 10s ease infinite; /* ←追加（ゆっくり無限ループ） */
+      background: linear-gradient(120deg, #fffde7, #fff3c0, #fffde7);
+      background-size: 300% 300%;
+      animation: gradientMove 10s ease infinite;
       color: #333;
       text-align: center;
       padding: 50px 20px;
@@ -19,7 +19,6 @@
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
 
     h1 {
       font-size: 2.5em;
@@ -50,29 +49,33 @@
   </ul>
 
   <script>
-    // 記念日設定
-    const debutDate = new Date('2023-07-05');
-    const photoBookDate = new Date('2022-12-02');
-    const liveDate = new Date('2023-11-11');
-    const birthMonth = 2; // 3月 → 2（0始まり）
-    const birthDay = 8;
+    // 日付を00:00:00に統一する関数
+    function resetTime(date) {
+      const d = new Date(date);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
 
-    const today = new Date();
-    today.setHours(0,0,0,0); // 時間切り捨て
+    // 各記念日を定義（すべてresetTimeで揃える）
+    const today = resetTime(new Date());
+    const debutDate = resetTime(new Date('2023-07-05'));
+    const photoBookDate = resetTime(new Date('2022-12-02'));
+    const liveDate = resetTime(new Date('2023-11-11'));
 
-    // 次回誕生日計算
-    let nextBirthday = new Date(today.getFullYear(), birthMonth, birthDay);
+    // 次の誕生日（3月8日）
+    let nextBirthday = new Date(today.getFullYear(), 2, 8); // 2 = 3月
     if (nextBirthday < today) {
       nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
     }
+    nextBirthday = resetTime(nextBirthday);
 
-    // 日数計算関数
+    // 日数差分を求める関数
     function calcDiff(fromDate, toDate) {
       const diff = toDate - fromDate;
       return Math.floor(diff / (1000 * 60 * 60 * 24));
     }
 
-    // 表示処理
+    // 表示反映
     document.getElementById("debut").textContent = calcDiff(debutDate, today);
     document.getElementById("photobook").textContent = calcDiff(photoBookDate, today);
     document.getElementById("live").textContent = calcDiff(liveDate, today);
